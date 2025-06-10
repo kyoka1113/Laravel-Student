@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>学生登録</h1>
-    <form action="{{ route('studentregistration') }}" method="POST">
+<form action="{{ route('studentregistration') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="name">名前:</label>
         <input type="text" id="name" name="name" required>
@@ -21,3 +21,5 @@
         <button type="submit">登録</button>
     </form>
 <button type ="button" onclick="location.href='{{ route('home') }}'">戻る</button>
+</body>
+</html>

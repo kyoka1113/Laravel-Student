@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 //学生表示画面を表示
 Route::get('/studentview', 'StudentviewController@studentviewView')->name('studentview');
 //学生登録画面を表示
-Route::get('/studentregistration', 'StudentregistrationController@studentregistrationView')->name('studentregistration');
+Route::get('/studentregistration', 'StudentRegistrationController@studentregistrationView')->name('studentregistration');
 //crud処理 学生登録画面
-Route::resource('students', 'StudentregistrationController');
+Route::resource('students', 'StudentRegistrationController');
+Route::get('/students/create', 'StudentRegistrationController@create')->name('students.create');
+Route::post('/students', 'StudentRegistrationController@store')->name('students.store');

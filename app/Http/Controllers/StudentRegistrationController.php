@@ -24,6 +24,7 @@ class StudentRegistrationController extends Controller
     public function create()
     {
         //
+        return view('studentregistration');
     }
 
     /**
@@ -35,6 +36,17 @@ class StudentRegistrationController extends Controller
     public function store(Request $request)
     {
         //
+        try{
+            $students = new User();
+            $students->name = $request->input('name');
+            $students->addres = $request->input('addres');
+            $students->image = $request->file('image')->store('images', 'public');
+
+        $students->save();
+        return back();
+        }catch (\Exception $e) {
+            return back()->withErrors(['error' => '登録に失敗しました。']);
+        }
     }
 
     /**
