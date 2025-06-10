@@ -17,7 +17,7 @@
                     You are logged in!
                     <br>
                     <button>学生更新</button>
-                    <button>学生登録</button>
+                    <button type="button" onclick="location.href='{{ route('studentregistration') }}'">学生登録</button>
                     <button type="button" onclick="location.href='{{ route('studentview') }}'">学生表示</button>
                 </div>
             </div>

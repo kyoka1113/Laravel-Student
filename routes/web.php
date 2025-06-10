@@ -16,6 +16,11 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+//メニュー画面を表示
 Route::get('/home', 'HomeController@index')->name('home');
+//学生表示画面を表示
 Route::get('/studentview', 'StudentviewController@studentviewView')->name('studentview');
+//学生登録画面を表示
+Route::get('/studentregistration', 'StudentregistrationController@studentregistrationView')->name('studentregistration');
+//crud処理 学生登録画面
+Route::resource('students', 'StudentregistrationController');
