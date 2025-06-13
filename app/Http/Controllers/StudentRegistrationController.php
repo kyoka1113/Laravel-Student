@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Models\Student; // studentsテーブルのモデルをインポート
 
 class StudentRegistrationController extends Controller
 {
@@ -37,10 +39,9 @@ class StudentRegistrationController extends Controller
     {
         //
         try{
-            $students = new User();
+            $students = new StudentRegistrationController();
             $students->name = $request->input('name');
             $students->addres = $request->input('addres');
-            $students->image = $request->file('image')->store('images', 'public');
 
         $students->save();
         return back();

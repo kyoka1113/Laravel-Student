@@ -7,16 +7,13 @@
 </head>
 <body>
     <h1>学生登録</h1>
-<form action="{{ route('studentregistration') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ route('students.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <label for="name">名前:</label>
         <input type="text" id="name" name="name" required>
         <br>
         <label for="addres">住所:</label>
         <input type="text" id="addres" name="addres" required>
-        <br>
-        <label for="image">顔写真:</label>
-        <input type="file" id="image" name="image" accept="image/*" required>
         <br>
         <button type="submit">登録</button>
     </form>
