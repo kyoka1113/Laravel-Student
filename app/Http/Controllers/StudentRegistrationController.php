@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Models\Student; // studentsテーブルのモデルをインポート
+use App\Student; // studentsテーブルのモデルをインポート
 
 class StudentRegistrationController extends Controller
 {
@@ -26,7 +26,7 @@ class StudentRegistrationController extends Controller
     public function create()
     {
         //
-        return view('studentregistration');
+        return view('student/studentregistration');
     }
 
     /**
@@ -38,15 +38,41 @@ class StudentRegistrationController extends Controller
     public function store(Request $request)
     {
         //
-        try{
-            $students = new StudentRegistrationController();
-            $students->name = $request->input('name');
-            $students->addres = $request->input('addres');
+        try {
+        // バリデーション
+            $request->validate([
+            'name' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'photo' => 'required|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+        // 画像の保存
+        $img_path = $request->file('photo')->store('images', 'public');
+        //DBへの登録
+        Student::create([
+            'name' => $request->input('name'),
+            'address' => $request->input('address'),
+            'img_path' => $img_path,
+        ]);
 
-        $students->save();
-        return back();
-        }catch (\Exception $e) {
-            return back()->withErrors(['error' => '登録に失敗しました。']);
+            return back()->with('success', '学生が正常に登録されました。');
+        } catch (\Exception $e) {
+    return back()->withErrors([
+        'error' => '学生の登録に失敗しました。',
+        'exception' => $e->getMessage(), // 例外の詳細メッセージを追加
+    ]);
+        }
+    }   
+    public function gradeUp($id){
+        try{
+            $student = Student::findOrFail($id);
+            $student->grade += 1; // 学年を1つ上げる
+            $student->save();
+            return redirect()->route('home')->with('success', '学年が更新されました。');
+        } catch (\Exception $e) {
+            return redirect()->route('home')->withErrors([
+                'error' => '学年の更新に失敗しました。',
+                'exception' => $e->getMessage(), // 例外の詳細メッセージを追加
+            ]);
         }
     }
 

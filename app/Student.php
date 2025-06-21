@@ -6,8 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    //
-    protected $fillable = [
-        'name', 'addres'
-    ];
+    protected $fillable = ['name', 'address', 'img_path'];
 }

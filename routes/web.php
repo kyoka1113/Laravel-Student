@@ -23,8 +23,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/studentview', 'StudentviewController@studentviewView')->name('studentview');
 //学生登録画面を表示
 Route::get('/studentregistration', 'StudentRegistrationController@studentregistrationView')->name('studentregistration');
-Route::post('/studentregistration', 'StudentRegistrationController@store')->name('students.create');
+
 //crud処理 学生登録画面
 Route::resource('students', 'StudentRegistrationController');
-Route::get('/students/create', 'StudentRegistrationController@create')->name('students.create');
-Route::post('/students', 'StudentRegistrationController@store')->name('students.store');
+Route::group(['prefix'=>'studentregistration'], function () {
+Route::get('/studentregistration', 'StudentRegistrationController@create')->name('student.create');
+Route::post('/studentregistration', 'StudentRegistrationController@store')->name('student.store');
+});
+Route::post('/home/{id}/grade-up','StudentregistrationController@gradeUp')->name('student.gradeUp');

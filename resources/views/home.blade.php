@@ -16,7 +16,15 @@
 
                     You are logged in!
                     <br>
-                    <button>学生更新</button>
+                    こんにちは、さん
+                    <br>
+                    現在の学年：年
+                    <br>
+                    <form action="{{ route('students.gradeUp') }}" method="POST">
+                    @csrf
+                    <button type="submit">学年更新</button>
+                    </form>
+                    <br>
                     <button type="button" onclick="location.href='{{ route('studentregistration') }}'">学生登録</button>
                     <button type="button" onclick="location.href='{{ route('studentview') }}'">学生表示</button>
                 </div>
