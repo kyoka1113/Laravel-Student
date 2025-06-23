@@ -62,19 +62,7 @@ class StudentRegistrationController extends Controller
     ]);
         }
     }   
-    public function gradeUp($id){
-        try{
-            $student = Student::findOrFail($id);
-            $student->grade += 1; // 学年を1つ上げる
-            $student->save();
-            return redirect()->route('home')->with('success', '学年が更新されました。');
-        } catch (\Exception $e) {
-            return redirect()->route('home')->withErrors([
-                'error' => '学年の更新に失敗しました。',
-                'exception' => $e->getMessage(), // 例外の詳細メッセージを追加
-            ]);
-        }
-    }
+
 
     /**
      * Display the specified resource.

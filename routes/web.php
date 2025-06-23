@@ -23,11 +23,15 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/studentview', 'StudentviewController@studentviewView')->name('studentview');
 //学生登録画面を表示
 Route::get('/studentregistration', 'StudentRegistrationController@studentregistrationView')->name('studentregistration');
-
+//学生詳細画面を表示
+Route::get('/studentdetail', 'StudentDetailController@studentdetailView')->name('studentdetail');
+//成績編集画面を表示
+Route::get('/editgrades', 'EditGradesController@editgradesView')->name('editgrades');
+//成績登録画面を表示
+Route::get('/graderegistration', 'GradeRegistrationController@graderegistrationView')->name('graderegistration');
 //crud処理 学生登録画面
 Route::resource('students', 'StudentRegistrationController');
 Route::group(['prefix'=>'studentregistration'], function () {
 Route::get('/studentregistration', 'StudentRegistrationController@create')->name('student.create');
 Route::post('/studentregistration', 'StudentRegistrationController@store')->name('student.store');
 });
-Route::post('/home/{id}/grade-up','StudentregistrationController@gradeUp')->name('student.gradeUp');

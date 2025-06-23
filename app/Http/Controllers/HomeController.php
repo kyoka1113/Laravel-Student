@@ -26,9 +26,5 @@ class HomeController extends Controller
     {
         return view('home');
     }
-    public function home()
-{
-    $student = Auth::guard('student')->user(); // ログイン中の学生
-    return view('home', compact('student'));
-}
+
 }
