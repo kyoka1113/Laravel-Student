@@ -31,7 +31,7 @@
         @foreach ($students as $student)
         <li>
             <a href="{{ route('students.show', $student->id) }}">
-            <li>{{ $student->grade }}年生 - {{ $student->name }}</li>
+            {{ $student->grade }}年生 - {{ $student->name }}</li>
             </a>
         </li>
         @endforeach
