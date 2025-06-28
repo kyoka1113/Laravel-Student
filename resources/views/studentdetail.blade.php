@@ -7,16 +7,17 @@
 </head>
 <body>
     <h2>生徒詳細</h2>
-        <p>学年: {{ $student->grade }}年生</p>
-        <p>名前: {{ $student->name }}</p>
-        <p>住所: {{ $student->address }}</p>
-@if ($student->photo)
-    <img src="{{ asset('public/storage/' . $student->img_path) }}" alt="写真">
+        <p>名前: {{ $studentGrades[0]->name }}</p>
+<p>住所: {{ $studentGrades[0]->address }}</p>
+<p>学年: {{ $studentGrades[0]->student_grade ?? '未設定' }}年生</p>
+
+@if ($studentGrades[0]->img_path)
+    <img src="{{ asset('storage/' . $studentGrades[0]->img_path) }}" alt="写真">
 @endif
-    <p>コメント: {{ $student->comment }}</p>
+    <p>コメント: {{ $studentGrades[0]->comment }}</p>
         <button type="button" onclick="location.href='{{ route('studentedit') }}'">学生編集</button>
     <h3>成績一覧</h3>
-@if ($student->grades->isEmpty())
+@if (empty($studentGrades[0]->school_grade))
     <p>成績は登録されていません。</p>
 @else
     <table border="1">
@@ -33,7 +34,7 @@
             <th>美術</th>
             <th>保健体育</th>
         </tr>
-        @foreach ($student->grades as $grade)
+        @foreach ($studentGrades as $grade)
         <tr>
             <td>{{ $grade->grade }}</td>
             <td>{{ $grade->term == 1 ? '前期' : '後期' }}</td>
@@ -52,7 +53,7 @@
 @endif
 
     <button type="button" onclick="location.href='{{ route('editgrades') }}'">成績編集</button>
-    <button onclick="location.href='{{ route('grades.create',$student->id) }}'">成績登録</button>
+    <button onclick="location.href='{{ route('grade.create',$studentGrades[0]->id) }}'">成績登録</button>
     <button type="button" onclick="location.href='{{ route('studentview') }}'">戻る</button>
 
 </body>

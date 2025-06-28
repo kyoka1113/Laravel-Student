@@ -16,7 +16,7 @@ class SearchStudentViewController extends Controller
     public function __invoke(Request $request)
     {
         //学生検索機能
-        $students =Student::searchStudents($request);
+        $students = Student::searchStudents($request);
         return view('studentview', compact('students'));
     }
 }

@@ -30,16 +30,10 @@ Route::get('/students/{id}',ShowStudentDetailController::class)->name('students.
 //成績編集画面を表示
 Route::get('/editgrades', 'EditGradesController@editgradesView')->name('editgrades');
 //成績登録画面を表示
-Route::get('/graderegistration', 'GradeRegistrationController@graderegistrationView')->name('graderegistration');
-//学生編集画面を表示
+Route::get('/graderegistration/{id}', ShowGradeRegistrationController::class)->name('grade.create');
+Route::post('/graderegistration/{id}', StoreGradeRegistrationController::class)->name('grade.store');
 Route::get('/studentedit','StudentEditController@studentEditView')->name('studentedit');
 //学生登録画面表示
 Route::get('studentregistration',ShowStudentRegistrationController::class)->name('studentregistration');
 //学生登録処理
 Route::post('/studentregistration', StudentRegistrationController::class)->name('students.store');
-//crud処理 成績登録画面
-Route::resource('school_grades', 'GradeRegistrationController');
-Route::group(['prefix'=>'graderegistration'], function () {
-Route::get('/graderegistration/{id}/carate', 'GradeRegistrationController@create')->name('grades.create');
-Route::post('/graderegistration/{id}', 'GradeRegistrationController@store')->name('grades.store');
-});

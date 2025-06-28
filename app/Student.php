@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,14 +26,30 @@ class Student extends Model
             $query->where('name','like','%'.$request->name.'%');
     }
     $students = $query->get();
-
-        return view('studentview', compact('students'));
+    return $query->get();
     }
     // 学生と成績のリレーション
-    public static function leftAll(){
-        $query = \DB::table('students')
-            ->leftJoin('school_grades', 'students.id', '=', 'school_grades.student_id')
-            ->select('students.*', 'school_grades.grade as school_grade');
-        return $query->get();
+    public static function leftAll($studentId){
+        return \DB::table('students')
+        ->leftjoin('school_grades', 'students.id', '=', 'school_grades.student_id')
+        ->select(
+            'students.*',//学生全体
+            'school_grades.grade', // 成績
+            'school_grades.term', // 学期
+            'school_grades.japanese', // 国語
+            'school_grades.math', // 数学
+            'school_grades.science', // 理科
+            'school_grades.social_studies', // 社会
+            'school_grades.music', // 音楽
+            'school_grades.home_economics', // 家庭科
+            'school_grades.english', // 英語
+            'school_grades.art', // 美術
+            'school_grades.health_and_physical_education' // 保健体育
+        )
+        ->where('students.id', $studentId)
+        ->get();
     }
+    // 成績登録表示
+
+
 }

@@ -6,22 +6,21 @@ use Illuminate\Http\Request;
 use App\Student; // studentsテーブルインポート
 use App\SchoolGrade; // 成績テーブルインポート
 
-class ShowStudentDetailController extends Controller
+class ShowGradeRegistrationController extends Controller
 {
-    /**学生詳細画面表示
+    /**
      * Handle the incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request, $id)
+    public function __invoke(Request $request , $id)
     {
-        $studentGrades = Student::leftAll($id); // 学生と成績のリレーションを取得
-
+        //成績登録画面を表示
+        $studentGrades = Student::leftAll($id);
         if($studentGrades->isEmpty()){
             abort(404);        
         }
-
-        return view('studentdetail', compact('studentGrades'));
+        return view('grade.create', compact('studentGrades'));
     }
 }
