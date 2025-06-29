@@ -29,11 +29,17 @@ class Student extends Model
     return $query->get();
     }
     // 学生と成績のリレーション
-    public static function leftAll($studentId){
+    public static function leftAll($id){
         return \DB::table('students')
-        ->leftjoin('school_grades', 'students.id', '=', 'school_grades.student_id')
+        ->leftJoin('school_grades', 'students.id', '=', 'school_grades.student_id')
+        ->where('students.id', $id)
         ->select(
-            'students.*',//学生全体
+            'students.id as student_id', // 学生ID
+            'students.name', // 学生名
+            'students.address', // 住所
+            'students.grade', // 学年
+            'students.img_path', // 画像パス
+            'students.comment', // コメント
             'school_grades.grade', // 成績
             'school_grades.term', // 学期
             'school_grades.japanese', // 国語
@@ -46,10 +52,8 @@ class Student extends Model
             'school_grades.art', // 美術
             'school_grades.health_and_physical_education' // 保健体育
         )
-        ->where('students.id', $studentId)
         ->get();
     }
-    // 成績登録表示
 
 
 }

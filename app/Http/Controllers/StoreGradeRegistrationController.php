@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Student; // studentsテーブルインポート
 use App\SchoolGrade; // 成績テーブルインポート
 
@@ -14,7 +15,7 @@ class StoreGradeRegistrationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, $id)
     {
         //成績登録の送信フォーム
         $request->validate([

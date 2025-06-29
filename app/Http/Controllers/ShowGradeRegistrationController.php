@@ -16,11 +16,10 @@ class ShowGradeRegistrationController extends Controller
      */
     public function __invoke(Request $request , $id)
     {
-        //成績登録画面を表示
         $studentGrades = Student::leftAll($id);
         if($studentGrades->isEmpty()){
-            abort(404);        
+            abort(404);
         }
-        return view('grade.create', compact('studentGrades'));
+        return view('graderegistration', compact('studentGrades'));
     }
 }

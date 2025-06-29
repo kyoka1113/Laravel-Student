@@ -7,17 +7,21 @@
 </head>
 <body>
     <h2>生徒詳細</h2>
-        <p>名前: {{ $studentGrades[0]->name }}</p>
-<p>住所: {{ $studentGrades[0]->address }}</p>
-<p>学年: {{ $studentGrades[0]->student_grade ?? '未設定' }}年生</p>
+    @php
+        $students = $studentGrades[0];
+    @endphp
 
-@if ($studentGrades[0]->img_path)
-    <img src="{{ asset('storage/' . $studentGrades[0]->img_path) }}" alt="写真">
+    <p>名前: {{ $students ->name }}</p>
+    <p>住所: {{ $students ->address }}</p>
+    <p>学年: {{ $students ->student_grade ?? '未設定' }}年生</p>
+
+@if ($students ->img_path)
+    <img src="{{ asset('storage/' . $students ->img_path) }}" alt="写真">
 @endif
-    <p>コメント: {{ $studentGrades[0]->comment }}</p>
+    <p>コメント: {{ $students ->comment }}</p>
         <button type="button" onclick="location.href='{{ route('studentedit') }}'">学生編集</button>
     <h3>成績一覧</h3>
-@if (empty($studentGrades[0]->school_grade))
+@if ($studentGrades->isEmpty())
     <p>成績は登録されていません。</p>
 @else
     <table border="1">
@@ -53,7 +57,7 @@
 @endif
 
     <button type="button" onclick="location.href='{{ route('editgrades') }}'">成績編集</button>
-    <button onclick="location.href='{{ route('grade.create',$studentGrades[0]->id) }}'">成績登録</button>
+    <button onclick="location.href='{{ route('grade.create', $studentGrades[0]->id) }}'">成績登録</button>
     <button type="button" onclick="location.href='{{ route('studentview') }}'">戻る</button>
 
 </body>
