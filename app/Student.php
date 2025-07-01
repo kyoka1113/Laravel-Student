@@ -29,31 +29,29 @@ class Student extends Model
     return $query->get();
     }
     // 学生と成績のリレーション
-    public static function leftAll($id){
-        return \DB::table('students')
-        ->leftJoin('school_grades', 'students.id', '=', 'school_grades.student_id')
-        ->where('students.id', $id)
-        ->select(
-            'students.id as student_id', // 学生ID
-            'students.name', // 学生名
-            'students.address', // 住所
-            'students.grade', // 学年
-            'students.img_path', // 画像パス
-            'students.comment', // コメント
-            'school_grades.grade', // 成績
-            'school_grades.term', // 学期
-            'school_grades.japanese', // 国語
-            'school_grades.math', // 数学
-            'school_grades.science', // 理科
-            'school_grades.social_studies', // 社会
-            'school_grades.music', // 音楽
-            'school_grades.home_economics', // 家庭科
-            'school_grades.english', // 英語
-            'school_grades.art', // 美術
-            'school_grades.health_and_physical_education' // 保健体育
-        )
-        ->get();
+    public static function getStudentWithGrades($id){
+        return DB::table('students')
+            ->leftjoin('school_grades','students.id','=','school_grades.student_id')
+            ->where('students.id',$id)
+            ->select(
+                'students.id as student_id',
+                'students.grade as students_grade',
+                'students.name',
+                'students.address',
+                'students.img_path',
+                'students.comment',
+                'school_grades.grade as school_grade',
+                'school_grades.term',
+                'school_grades.japanese',
+                'school_grades.math',
+                'school_grades.science',
+                'school_grades.social_studies',
+                'school_grades.music',
+                'school_grades.home_economics',
+                'school_grades.english',
+                'school_grades.art',
+                'school_grades.health_and_physical_education')
+            ->get();
     }
-
 
 }

@@ -16,10 +16,17 @@ class ShowGradeRegistrationController extends Controller
      */
     public function __invoke(Request $request , $id)
     {
-        $studentGrades = Student::leftAll($id);
-        if($studentGrades->isEmpty()){
-            abort(404);
+        $students = Student::find($id);
+        if (!$students) {
+            abort(404, '学生が見つかりません。');
         }
-        return view('graderegistration', compact('studentGrades'));
+        $grades = SchoolGrade::where('student_id', $id)->get();
+        return view('graderegistration', compact('students' ,'grades'));
+
+        $redirectTo = $request ->input('redirect_to');
+        if($redirectTo){
+            return redirect($redirectTo)->with('success', '成績が登録されました。');
+        }
+        return back()->with('success', '成績が登録されました。');
     }
 }

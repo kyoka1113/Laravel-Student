@@ -16,12 +16,12 @@ class ShowStudentDetailController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
-        $studentGrades = Student::leftAll($id); // 学生と成績のリレーションを取得
+        $grades = Student::getStudentWithGrades($id);
+        $students = $grades ->first();
 
-        if($studentGrades->isEmpty()){
-            abort(404);        
+        if($grades->isEmpty()) {
+            abort(404, '学生が見つかりません。');
         }
-
-        return view('studentdetail', compact('studentGrades'));
-    }
+    return view('studentdetail', compact('students' ,'grades'));
+}
 }
