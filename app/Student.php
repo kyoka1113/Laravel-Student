@@ -53,5 +53,4 @@ class Student extends Model
                 'school_grades.health_and_physical_education')
             ->get();
     }
-
 }

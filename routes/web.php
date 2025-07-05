@@ -28,7 +28,9 @@ Route::get('/studentregistration', ShowStudentRegistrationController::class)->na
 //学生詳細画面を表示（ID指定）
 Route::get('/students/{id}',ShowStudentDetailController::class)->name('students.show');
 //成績編集画面を表示
-Route::get('/editgrades', 'EditGradesController@editgradesView')->name('editgrades');
+Route::get('/editgrades/edit/{id}', EditGradeController::class)->name('editgrades.edit');
+//成績編集処理
+Route::post('/editgrades/update/{id}',UpdateEditGradeController::class)->name('editgrades.update');
 //成績登録画面を表示
 Route::get('/grades/create/{id}', ShowGradeRegistrationController::class)->name('grade.create');
 //成績登録処理
