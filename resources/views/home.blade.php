@@ -16,8 +16,15 @@
 
                     You are logged in!
                     <br>
-                    <button type="submit">学年更新</button>
+                    <form action='{{ route('students.updateGrade')}}'method='POST' onsubmit="return confirm('全ての学生の学年を更新します。よろしいですか？');">
+                        @csrf
+                        <button type="submit">学年更新</button>
+                        @if(session('success'))
+                            <p style="color:green">{{ session('success') }}</p>
+                        @endif
+                    </form>
                     <button type="button" onclick="location.href='{{ route('studentregistration') }}'">学生登録</button>
+                    <br>
                     <button type="button" onclick="location.href='{{ route('studentview') }}'">学生表示</button>
                 </div>
             </div>

@@ -16,6 +16,7 @@ class ShowGradeRegistrationController extends Controller
      */
     public function __invoke(Request $request , $id)
     {
+        //成績登録画面を表示
         $students = Student::find($id);
         if (!$students) {
             abort(404, '学生が見つかりません。');

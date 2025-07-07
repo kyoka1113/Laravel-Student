@@ -8,13 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     // 学生登録追加処理
-    public static function insertStudent($data){
+    public static function insertStudent(array $data){
         return DB::table('students')->insert($data);
     }
+
 // 学生全件取得処理
     public static function getAllStudent(){
         return DB::table('students')->get();
     }
+
     //学生検索機能処理
     public static function searchStudents(Request $request){
         $query = \DB::table('students');
@@ -25,21 +27,22 @@ class Student extends Model
         if(!empty($request->name)){
             $query->where('name','like','%'.$request->name.'%');
     }
-    $students = $query->get();
     return $query->get();
     }
+    
     // 学生と成績のリレーション
-    public static function getStudentWithGrades($id){
+    public static function getStudentWithGrades($studentId){
         return DB::table('students')
             ->leftjoin('school_grades','students.id','=','school_grades.student_id')
-            ->where('students.id',$id)
+            ->where('students.id',$studentId)
             ->select(
                 'students.id as student_id',
-                'students.grade as students_grade',
+                'students.grade',
                 'students.name',
                 'students.address',
                 'students.img_path',
                 'students.comment',
+                'school_grades.id as student_id',
                 'school_grades.grade as school_grade',
                 'school_grades.term',
                 'school_grades.japanese',
@@ -52,5 +55,9 @@ class Student extends Model
                 'school_grades.art',
                 'school_grades.health_and_physical_education')
             ->get();
+    }
+    //学生情報を削除
+    public static function deleteStudent($id){
+        return \DB::table('students')->where('id',$id)->delete();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; // DBファサードをインポート
 use App\Student; // studentsテーブルインポート
 use App\SchoolGrade; // 成績テーブルインポート
 
@@ -16,12 +17,16 @@ class ShowStudentDetailController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
-        $grades = Student::getStudentWithGrades($id);
-        $students = $grades ->first();
+        //学生情報を表示
+        $data = Student::getStudentWithGrades($id);
 
-        if($grades->isEmpty()) {
+        if ($data->isEmpty()) {
             abort(404, '学生が見つかりません。');
         }
-    return view('studentdetail', compact('students' ,'grades'));
+        $students = $data->first();
+        return view('studentdetail', [
+        'students' => $students,
+        'grades' => $data,
+    ]);
 }
 }
