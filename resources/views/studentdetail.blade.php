@@ -79,7 +79,7 @@
         @endforeach
     </table>
     <button type="button" onclick="location.href='{{ route('grades.create', $students->student_id) }}'">成績登録</button>
-    <button type="button" onclick="location.href='{{ route('editgrades.edit', $students->id) }}'">成績編集</button>
+    <button type="button" onclick="location.href='{{ route('editgrades.edit', $students->student_id) }}'">成績編集</button>
     <button type="button" onclick="location.href='{{ route('studentview') }}'">戻る</button>
 </body>
 </html>

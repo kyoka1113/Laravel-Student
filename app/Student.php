@@ -42,7 +42,7 @@ class Student extends Model
                 'students.address',
                 'students.img_path',
                 'students.comment',
-                'school_grades.id as student_id',
+                'school_grades.id as grade_id',
                 'school_grades.grade as school_grade',
                 'school_grades.term',
                 'school_grades.japanese',

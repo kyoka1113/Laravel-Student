@@ -7,7 +7,7 @@
     </head>
     <body>
     <h1>成績登録</h1>
-    <form action="{{ route('grade.store',$students->id) }}" method="POST">
+    <form action="{{ route('grades.store',$students->id) }}" method="POST">
         @csrf
         <input type="hidden" name="redirect_to" value="{{ route('students.show',$students->id) }}">
         <label for='grade'>学年：</label>
