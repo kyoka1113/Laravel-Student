@@ -11,10 +11,23 @@ class Student extends Model
     public static function insertStudent(array $data){
         return DB::table('students')->insert($data);
     }
+    //学年更新処理
+    public static function updateStudentGrade(){
+        return \DB::table('students')
+        ->where('grade','<',5)
+        ->update([
+            'grade' => DB::raw('grade + 1'),
+            'updated_at' => now(),
+        ]);
+    }
 
-// 学生全件取得処理
+    // 学生全件取得処理
     public static function getAllStudent(){
         return DB::table('students')->get();
+    }
+    // 学生表示
+    public static function findById($id){
+        return DB::table('students')->where('id', $id)->first();
     }
 
     //学生検索機能処理
@@ -29,6 +42,10 @@ class Student extends Model
     }
     return $query->get();
     }
+    //学生編集処理
+    public static function updateStudent($id, array $data){
+        return DB::table('students')->where('id', $id)->update($data);
+    }
     
     // 学生と成績のリレーション
     public static function getStudentWithGrades($studentId){
@@ -36,24 +53,24 @@ class Student extends Model
             ->leftjoin('school_grades','students.id','=','school_grades.student_id')
             ->where('students.id',$studentId)
             ->select(
-                'students.id as student_id',
-                'students.grade',
-                'students.name',
-                'students.address',
-                'students.img_path',
-                'students.comment',
-                'school_grades.id as grade_id',
-                'school_grades.grade as school_grade',
-                'school_grades.term',
-                'school_grades.japanese',
-                'school_grades.math',
-                'school_grades.science',
-                'school_grades.social_studies',
-                'school_grades.music',
-                'school_grades.home_economics',
-                'school_grades.english',
-                'school_grades.art',
-                'school_grades.health_and_physical_education')
+            'students.id as id', 
+            'students.grade as student_grade',
+            'students.name',
+            'students.address',
+            'students.img_path',
+            'students.comment',
+            'school_grades.id as grade_id',
+            'school_grades.grade as grade_grade',
+            'school_grades.term',
+            'school_grades.japanese',
+            'school_grades.math',
+            'school_grades.science',
+            'school_grades.social_studies',
+            'school_grades.music',
+            'school_grades.home_economics',
+            'school_grades.english',
+            'school_grades.art',
+            'school_grades.health_and_physical_education')
             ->get();
     }
     //学生情報を削除

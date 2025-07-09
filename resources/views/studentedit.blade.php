@@ -10,10 +10,10 @@
         @csrf
         <label>学年:
             <select name='grade'>
-                <option value="1"{{ $students->grade == 1 ? 'selected' : ''}}>1年</option>
-                <option value="2"{{ $students->grade == 2 ? 'selected' : ''}}>2年</option>
-                <option value="3"{{ $students->grade == 3 ? 'selected' : ''}}>3年</option>
-                <option value="4"{{ $students->grade == 4 ? 'selected' : ''}}>4年</option>
+                <option value="1"{{ $students->grade == 1 ? ' selected' : '' }}>1年</option>
+                <option value="2"{{ $students->grade == 2 ? ' selected' : '' }}>2年</option>
+                <option value="3"{{ $students->grade == 3 ? ' selected' : '' }}>3年</option>
+                <option value="4"{{ $students->grade == 4 ? ' selected' : '' }}>4年</option>
             </select>
         <label>名前:<input type="text" name="name" value="{{$students->name}}"></label>
         <br>

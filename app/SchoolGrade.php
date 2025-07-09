@@ -15,6 +15,29 @@ class SchoolGrade extends Model
     public static function getAllGrades(){
         return \DB::table('school_grades')->get();
     }
+    //成績表示
+    public static function findById($id){
+        return \DB::table('school_grades')->where('id', $id)->first();
+    }
+    //成績登録処理
+    public static function registerGrade($id,$request){
+        return \DB::table('school_grades')->insert([
+            'student_id'=> $id,
+            'grade' => $request->grade,
+            'term' => $request->term,
+            'japanese' => $request->japanese,
+            'math' => $request->math,
+            'science' => $request->science,
+            'social_studies' => $request->social_studies,
+            'music' => $request->music,
+            'home_economics' => $request->home_economics,
+            'english' => $request->english,
+            'art' => $request->art,
+            'health_and_physical_education' => $request->health_and_physical_education,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+    }
     //成績検索処理
     public static function searchGrades(Request $request, $studentId){
         $query = \DB::table('school_grades')->where('student_id', $studentId);
@@ -35,5 +58,22 @@ class SchoolGrade extends Model
     //成績削除処理
     public static function deleteGrade($id){
         return \DB::table('school_grades')->where('id', $id)->delete();
+    }
+    //成績編集処理
+    public static function updateGrade($id, $request){
+        return \DB::table('school_grades')->where('id', $id)->update([
+            'grade' => $request->grade,
+            'term' => $request->term,
+            'japanese' => $request->japanese,
+            'math' => $request->math,
+            'science' => $request->science,
+            'social_studies' => $request->social_studies,
+            'music' => $request->music,
+            'home_economics' => $request->home_economics,
+            'english' => $request->english,
+            'art' => $request->art,
+            'health_and_physical_education' => $request->health_and_physical_education,
+            'updated_at' => now(),
+        ]);
     }
 }

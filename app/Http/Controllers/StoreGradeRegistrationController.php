@@ -32,22 +32,7 @@ class StoreGradeRegistrationController extends Controller
             'health_and_physical_education' => 'required|numeric|min:0|max:100'
         ]);
         //成績登録
-        DB::table('school_grades')->insert([
-            'student_id' => $id,
-            'grade' => $request->grade,
-            'term' => $request->term,
-            'japanese' => $request->japanese,
-            'math' => $request->math,
-            'science' => $request->science,
-            'social_studies' => $request->social_studies,
-            'music' => $request->music,
-            'home_economics' => $request->home_economics,
-            'english' => $request->english,
-            'art' => $request->art,
-            'health_and_physical_education' => $request->health_and_physical_education,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);   
+        SchoolGrade::registerGrade($id,$request);
         return back()->with('success', '成績が登録されました。');
     }
 }

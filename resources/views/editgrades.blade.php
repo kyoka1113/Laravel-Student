@@ -93,6 +93,6 @@
     @if (session('success'))
     <p style="color: green">{{ session('success') }}</p>
     @endif
-<button type="button" onclick="location.href='{{ route('students.show', $grades->student_id) }}'">戻る</button>
+<button type="button" onclick="location.href='{{ route('students.show', $students->id) }}'">戻る</button>
 </body>
 </html>

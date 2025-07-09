@@ -19,14 +19,14 @@ class ShowStudentDetailController extends Controller
     {
         //学生情報を表示
         $data = Student::getStudentWithGrades($id);
-
         if ($data->isEmpty()) {
             abort(404, '学生が見つかりません。');
         }
         $students = $data->first();
-        return view('studentdetail', [
-        'students' => $students,
-        'grades' => $data,
-    ]);
+        $grades = $data->filter(function($row){
+
+            return $row->term !== null;
+        });
+        return view('studentdetail', compact('students', 'grades'));
 }
 }

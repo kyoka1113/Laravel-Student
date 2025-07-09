@@ -21,10 +21,10 @@ class UpdateStudentController extends Controller
             'grade' => 'required|integer|min:1|max:4',
             'name' => 'required|string',
             'address' => 'required|string',
-            'img_path' => 'required|image|max:2048',
+            'img_path' => 'nullable|image|max:2048',
             'comment' =>'nullable|string',
         ]);
-        $updateDate =[
+        $updateData =[
             'grade' => $request->grade,
             'name' => $request->name,
             'address' => $request->address,
@@ -33,9 +33,9 @@ class UpdateStudentController extends Controller
         ];
         if($request->hasFile('img_path')){
             $path = $request->file('img_path')->store('/store');
-            $updateDate ['img_path'] = $path;
+            $updateData ['img_path'] = $path;
         }
-        DB::table('students')->where('id',$id)->update($updateDate);
+        Student::updateStudent($id, $updateData);
         return back()->with('success','学生情報を更新しました');
     }
 }

@@ -18,10 +18,14 @@ class EditGradeController extends Controller
     public function __invoke(Request $request,$id)
     {
         //成績編集画面を表示
-        $grades = DB::table('school_grades')->where('id', $id)->first();
+        $grades = SchoolGrade::findById($id);
         if (!$grades) {
+            abort(404, '成績が見つかりません。');
+        }
+        $student = Student::findById($grades->student_id);
+        if (!$student) {
             abort(404, '学生が見つかりません。');
         }
-        return view('editgrades', compact('grades'));
+        return view('editgrades', compact('student', 'grades'));
     }
 }

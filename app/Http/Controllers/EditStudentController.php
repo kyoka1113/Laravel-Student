@@ -18,7 +18,8 @@ class EditStudentController extends Controller
     public function __invoke(Request $request,$id)
     {
         //学生編集画面表示
-        $students = DB::table('students')->where('id', $id)->first();
+        Student::findById($id);
+        $students = Student::findById($id);
         if (!$students) {
             abort(404, '学生が見つかりません。');
         }

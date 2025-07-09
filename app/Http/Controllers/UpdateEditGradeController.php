@@ -32,20 +32,8 @@ class UpdateEditGradeController extends Controller
             'art' => 'required|numeric|min:0|max:100',
             'health_and_physical_education' => 'required|numeric|min:0|max:100'
         ]);
-        DB::table('school_grades')->where('id', $id)->update([
-        'grade' => $request->grade,
-        'term' => $request->term,
-        'japanese' => $request->japanese,
-        'math' => $request->math,
-        'science' => $request->science,
-        'social_studies' => $request->social_studies,
-        'music' => $request->music,
-        'home_economics' => $request->home_economics,
-        'english' => $request->english,
-        'art' => $request->art,
-        'health_and_physical_education' => $request->health_and_physical_education,
-        'updated_at' => now(),
-    ]);
+        SchoolGrade::updateGrade($id, $request);
+        
         return back()->with('success','成績を更新しました');
     }
 }
