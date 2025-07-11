@@ -32,7 +32,7 @@ class UpdateStudentController extends Controller
             'updated_at' =>now(),
         ];
         if($request->hasFile('img_path')){
-            $path = $request->file('img_path')->store('/store');
+            $path = $request->file('img_path')->store('images','public');
             $updateData ['img_path'] = $path;
         }
         Student::updateStudent($id, $updateData);

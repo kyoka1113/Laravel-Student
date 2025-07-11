@@ -18,12 +18,12 @@ class SearchGradeController extends Controller
     public function __invoke(Request $request,$id)
     {
         //学生情報を取得
-        $students = Student::findById($id);
-        if(!$students){
+        $student = Student::findById($id);
+        if(!$student){
             abort(404, '学生が見つかりません。');
         }
         //成績検索
         $grades = SchoolGrade::searchGrades($request, $id);
-        return view('studentdetail', compact('students', 'grades'));
+        return view('studentdetail', compact('student', 'grades'));
     }
     }

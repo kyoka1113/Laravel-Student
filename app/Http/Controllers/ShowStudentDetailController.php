@@ -17,16 +17,16 @@ class ShowStudentDetailController extends Controller
      */
     public function __invoke(Request $request, $id)
     {
-        //学生情報を表示
-        $data = Student::getStudentWithGrades($id);
-        if ($data->isEmpty()) {
-            abort(404, '学生が見つかりません。');
+        //学生情報取得
+        $student = Student::findById($id);
+        if (!$student) {
+            abort(404, '学生が見つかりません。'); 
         }
-        $students = $data->first();
-        $grades = $data->filter(function($row){
-
-            return $row->term !== null;
-        });
-        return view('studentdetail', compact('students', 'grades'));
-}
+        //成績情報取得
+        $grades = SchoolGrade::getGradesByStudentId($id);
+        return view('studentdetail',[
+            'student' =>$student,
+            'grades' => $grades
+        ]);
+    }
 }

@@ -23,8 +23,7 @@
     </form>
     <hr>
     <h2>検索結果：</h2>
-
-    @if ($students->isEmpty())
+    @if($students->isEmpty())
         <p>該当する学生がいません。</p>
     @else
     <ul>

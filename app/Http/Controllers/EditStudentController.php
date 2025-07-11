@@ -19,10 +19,10 @@ class EditStudentController extends Controller
     {
         //学生編集画面表示
         Student::findById($id);
-        $students = Student::findById($id);
-        if (!$students) {
+        $student = Student::findById($id);
+        if (!$student) {
             abort(404, '学生が見つかりません。');
         }
-        return view('studentedit', compact('students'));
+        return view('studentedit', compact('student'));
     }
 }

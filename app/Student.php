@@ -48,19 +48,19 @@ class Student extends Model
     }
     
     // 学生と成績のリレーション
-    public static function getStudentWithGrades($studentId){
+    public static function getStudentWithGrades($id){
         return DB::table('students')
             ->leftjoin('school_grades','students.id','=','school_grades.student_id')
-            ->where('students.id',$studentId)
+            ->where('students.id',$id)
             ->select(
             'students.id as id', 
-            'students.grade as student_grade',
+            'students.grade as grade',
             'students.name',
             'students.address',
             'students.img_path',
             'students.comment',
-            'school_grades.id as grade_id',
-            'school_grades.grade as grade_grade',
+            'school_grades.id as id',
+            'school_grades.grade as grade',
             'school_grades.term',
             'school_grades.japanese',
             'school_grades.math',

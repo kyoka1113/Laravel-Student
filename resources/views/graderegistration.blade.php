@@ -7,7 +7,7 @@
     </head>
     <body>
     <h1>成績登録</h1>
-    <form action="{{ route('grades.store',$students->id) }}" method="POST">
+    <form action="{{ route('grades.store',$student->id) }}" method="POST">
         @csrf
         <label for='grade'>学年：</label>
         <select name="grade" id="grade" required>
@@ -99,6 +99,6 @@
                 <p style="color:red;">{{ $error }}</p>
             @endforeach
             @endif
-        <button type="button" onclick="location.href='{{ route('students.show', $students->id) }}'">戻る</button>
+        <button type="button" onclick="location.href='{{ route('students.show', $student->id) }}'">戻る</button>
     </body>
     </html>

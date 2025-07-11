@@ -21,7 +21,7 @@
         <br>
         <button type="submit">登録</button>
     </form>
-   @if ($errors->any())
+    @if ($errors->any())
     @foreach ($errors->all() as $error)
         <p style="color:red;">{{ $error }}</p>
     @endforeach

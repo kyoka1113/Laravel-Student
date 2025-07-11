@@ -7,28 +7,28 @@
 </head>
 <body>
     <h2>生徒詳細</h2>
-        <p>学年: {{ $students->student_grade }}</p>
-        <p>名前: {{ $students->name }}</p>
-        <p>住所: {{ $students->address }}</p>
-    @if($students->img_path)
+        <p>学年: {{ $student->grade }}</p>
+        <p>名前: {{ $student->name }}</p>
+        <p>住所: {{ $student->address }}</p>
+    @if($student->img_path)
         <p>写真:</p>
-        <img src="{{ asset('storage/'.$students->img_path)}}" alt="Student Photo" style="max-width:200px;">
+        <img src="{{ asset('storage/'.$student->img_path)}}" alt="Student Photo" style="max-width:200px;">
         @else
         <p>写真: なし</p>
     @endif
-        <p>コメント: {{ $students->comment }}</p>
-        <button type="button" onclick="location.href='{{ route('editstudents.edit', $students->id) }}'">学生情報編集</button>
-        <form action="{{ route('students.delete',$students->id)}}"method='POST' onsubmit="return confirm('本当に削除しますか？');">
+        <p>コメント: {{ $student->comment }}</p>
+        <button type="button" onclick="location.href='{{ route('editstudents.edit', $student->id) }}'">学生情報編集</button>
+        <form action="{{ route('students.delete',$student->id)}}"method='POST' onsubmit="return confirm('本当に削除しますか？');">
             @csrf
             <button type="submit" style="color:red;">学生削除</button>
         </form>
-        <h3>{{ $students->name }}さんの成績</h3>
+        <hr>
+        <h3>{{ $student->name }}さんの成績</h3>
     @if($grades->isEmpty())
         <p>成績はありません。</p>
-    @else
     @endif
     <h4>成績検索</h4>
-    <form action ="{{ route('grades.search',$students->id)}}"method="GET">
+    <form action ="{{ route('grades.search',$student->id)}}"method="GET">
         学年:
         <select name='grade'>
             <option value="">---選択---</option>
@@ -45,7 +45,7 @@
             <option value="2"{{ request('term') == 2 ? ' selected' : '' }}>後期</option>
         </select>
         <button type="submit">検索</button>
-        <button type="button"onclick="window.location='{{ route('students.show',$students->id) }}'">リセット</button>
+        <button type="button"onclick="window.location='{{ route('students.show',$student->id) }}'">リセット</button>
     </form>
     <br>
     <table border="1">
@@ -55,7 +55,7 @@
     </tr>
     @foreach($grades as $grade)
         <tr>
-            <td>{{ $grade->grade_grade }}</td>
+            <td>{{ $grade->grade }}</td>
             <td>{{ $grade->term == 1 ? '前期' : '後期' }}</td>
             <td>{{ $grade->japanese }}</td>
             <td>{{ $grade->math }}</td>
@@ -67,12 +67,12 @@
             <td>{{ $grade->art }}</td>
             <td>{{ $grade->health_and_physical_education }}</td>
             <td>
-                <button type="button" onclick="location.href='{{ route('editgrades.edit', $grade->grade_id) }}'">編集</button>
+                <button type="button" onclick="location.href='{{ route('editgrades.edit', $grade->id) }}'">編集</button>
             </td>
         </tr>
     @endforeach
-</table>
-    <button type="button" onclick="location.href='{{ route('grades.create', $students->id) }}'">成績登録</button>
+    </table>
+    <button type="button" onclick="location.href='{{ route('grades.create', $student->id) }}'">成績登録</button>
     <button type="button" onclick="location.href='{{ route('studentview') }}'">戻る</button>
 </body>
 </html>

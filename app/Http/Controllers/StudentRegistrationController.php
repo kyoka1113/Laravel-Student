@@ -18,7 +18,6 @@ class StudentRegistrationController extends Controller
     {
         //
         $request->validate([
-            'student_grade' => 'nullable|integer|min:1|max:6',
             'name' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'photo' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -27,7 +26,6 @@ class StudentRegistrationController extends Controller
         $img_path = $request->file('photo')->store('images', 'public');
 
         $data = [
-            'student_grade' => $request->student_grade,
             'name' => $request->name,
             'address' => $request->address,
             'img_path' => $img_path,
